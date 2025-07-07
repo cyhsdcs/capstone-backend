@@ -1,0 +1,6 @@
+cpu: true
+saved_dir: !!python/object/apply:pathlib.PosixPath
+- model
+- CNN
+pid: '1'
+begin_time: '131428'
