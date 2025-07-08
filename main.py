@@ -4,7 +4,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from predict_by_CNN import predict_by_CNN
 import pandas as pd
+<<<<<<< HEAD
 
+=======
+from predict_by_XGB import predict_future_10_days
+>>>>>>> 237bcda66fea9ae365cc23a41fc67afa226d51bc
 app = FastAPI()
 
 # 添加 CORS 中间件
@@ -28,5 +32,15 @@ def product():
 
 @app.get("/cnn")
 def cnn(pid: str = '1'):
+<<<<<<< HEAD
     time_list, apply_amt_pred, redeem_amt_pred, net_in_amt_pred = predict_by_CNN(pid)
     return {"time_list": time_list, "apply_amt_pred": apply_amt_pred, "redeem_amt_pred": redeem_amt_pred, "net_in_amt_pred": net_in_amt_pred}
+=======
+    apply_amt_pred, redeem_amt_pred, net_in_amt_pred = predict_by_CNN(pid)
+    return {"apply_amt_pred": apply_amt_pred, "redeem_amt_pred": redeem_amt_pred, "net_in_amt_pred": net_in_amt_pred}
+
+@app.get("/xgboost")
+def xgboost(pid: str = '1'):
+    result = predict_future_10_days('product'+pid)
+    return result['future_predictions']
+>>>>>>> 237bcda66fea9ae365cc23a41fc67afa226d51bc
