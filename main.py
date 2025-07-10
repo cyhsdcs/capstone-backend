@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from predict_by_CNN import predict_by_CNN
 import pandas as pd
 from predict_by_XGB import predict_future_10_days
+from transformer.predict_by_Transformer import predict_by_Transformer
 app = FastAPI()
 
 
@@ -26,3 +27,13 @@ def cnn(pid: str = '1'):
 def xgboost(pid: str = '1'):
     result = predict_future_10_days('product'+pid)
     return result['future_predictions']
+
+@app.get("/transformer")
+def transformer(pid: str = '1'):
+    result = predict_by_Transformer(pid=pid, iflstm=False)
+    return result
+
+@app.get("/lstm")
+def lstm(pid: str = '1'):
+    result = predict_by_Transformer(pid=pid, iflstm=True)
+    return result
