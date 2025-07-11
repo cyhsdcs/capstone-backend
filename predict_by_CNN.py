@@ -117,7 +117,8 @@ def predict(pid):
         apply_amt_pred = pred_th[0].squeeze().numpy().tolist()
         redeem_amt_pred = pred_th[1].squeeze().numpy().tolist()
         net_in_amt_pred = (0.5*pred_th[2].squeeze().numpy()+0.5*(pred_th[0].squeeze().numpy() - pred_th[1].squeeze().numpy())).tolist()
-        return apply_amt_pred, redeem_amt_pred, net_in_amt_pred
+        time_list = ['20221110', '20221111', '20221114', '20221115', '20221116', '20221117', '20221118', '20221121', '20221122', '20221123' ]
+        return time_list, apply_amt_pred, redeem_amt_pred, net_in_amt_pred
 
 
 def predict_by_CNN(pid: str):
