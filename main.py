@@ -35,4 +35,4 @@ def cnn(pid: str = '1'):
 @app.get("/xgboost")
 def xgboost(pid: str = '1'):
     result = predict_future_10_days('product'+pid)
-    return result['future_predictions']
+    return result['response']

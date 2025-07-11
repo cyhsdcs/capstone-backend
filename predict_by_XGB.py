@@ -78,12 +78,26 @@ def predict_future_10_days(product_pid, model_path="model/XGB/xgb.json",
         }
         future_predictions.append(day_prediction)
     
-    # 8. 返回结果
+    # 8. 转换数据格式为response
+    time_list = [pred['date'].replace('-', '') for pred in future_predictions]
+    apply_amt_pred = [pred['apply_amt_pred'] for pred in future_predictions]
+    redeem_amt_pred = [pred['redeem_amt_pred'] for pred in future_predictions]
+    net_in_amt_pred = [pred['net_in_amt_pred'] for pred in future_predictions]
+    
+    response = {
+        "time_list": time_list,
+        "apply_amt_pred": apply_amt_pred,
+        "redeem_amt_pred": redeem_amt_pred,
+        "net_in_amt_pred": net_in_amt_pred
+    }
+    
+    # 9. 返回结果
     result = {
         'product_pid': product_pid,
         'prediction_start_date': future_dates[0],
         'prediction_end_date': future_dates[-1],
         'future_predictions': future_predictions,
+        'response': response,
         'summary': {
             'avg_apply_amt': float(sum(p['apply_amt_pred'] for p in future_predictions) / 10),
             'avg_redeem_amt': float(sum(p['redeem_amt_pred'] for p in future_predictions) / 10),
